@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- 
+
+    Crea un programa que permita introducir los siguientes
+    datos de un participante de una maratón:
+
+    dorsal y el tiempo en minutos y segundos que ha tardado en
+    completar la carrera
+
+    Estos datos se guardarán en un array en formarto de objeto:
+    {dorsal, minutos, segundos}
+
+    al finalizar el programa mostrará el listado de participantes
+    con la información del objeto más la velocidad media que 
+    ha tardado en completar la carrera.
+
+    También nos debe mostrar la velocidad media total de todos
+    los participantes.
+    
+    -->
+
+
+    <h2>Resultados maratón 5 kms</h2>
+
+    <input type="number" id="dorsal" placeholder="dorsal">
+    <input type="number" id="minutos" placeholder="minutos">
+    <input type="number" id="segundos" placeholder="segundos">
+
+    <button type="button" id="insertar">Insertar datos</button>
+
+    <br><br>
+
+    <button type="button" id="visualizar">Visualizar datos</button>
+
+
+    <div id="resultados"></div>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Jorge</td>
+                <td>jorge@gmail</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Jorge</td>
+                <td>jorge@gmail</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <script>
+
+        const btnVisualizar = document.getElementById('visualizar');
+        const btnInsertar = document.getElementById('insertar');
+        var listadoParticipantes = [];
+
+        btnVisualizar.onclick = () => {
+
+            if(listadoParticipantes.length == 0){
+                alert('No hay datos que mostrar');
+                return;
+            }
+
+            //Mostramos los datos
+
+            //bucle que recorra los participantes incluidos
+            //En el array
+
+            //Por cada dato dentro de la lista
+            for(var participante of listadoParticipantes){
+
+                
+
+            }
+
+        }
+
+        //Evento al pulsar
+        btnInsertar.onclick = () => {
+            //Accedemos a los datos de los inputs
+            const dorsal = document.getElementById('dorsal').value;
+            const minutos = document.getElementById('minutos').value;
+            const segundos = document.getElementById('segundos').value;
+
+            //comprobamos que el usuario a insertado todos los datos
+            if(dorsal == "" || minutos == "" || segundos == ""){
+                alert("Faltan datos por completar");
+                return; //Finalizamos el evento
+            }
+
+            //Creamos el objeto con los datos
+            const participante = {
+                dorsalParticipante: dorsal,
+                min: minutos,
+                seg: segundos
+            }
+
+            //Insertamos el objeto en el array (lista)
+            listadoParticipantes.push(participante);
+            console.log(listadoParticipantes);
+
+            //Limpiar los campos
+            document.getElementById('dorsal').value = "";
+            document.getElementById('minutos').value = "";
+            document.getElementById('segundos').value = "";
+
+        }
+       
+
+    </script>
+    
+</body>
+</html>

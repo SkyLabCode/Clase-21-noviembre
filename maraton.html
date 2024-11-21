@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        table{
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td{
+            border-style: solid;
+            border-color: #000;
+        }
+
+        th, td{
+            padding: 20px;
+        }
+
+    </style>
+
 </head>
+
 <body>
 
     <!-- 
@@ -44,6 +65,8 @@
     <div id="resultados"></div>
 
 
+
+    <!-- 
     <table>
         <thead>
             <tr>
@@ -65,7 +88,7 @@
             </tr>
         </tbody>
     </table>
-
+    -->
 
     <script>
 
@@ -75,24 +98,67 @@
 
         btnVisualizar.onclick = () => {
 
-            if(listadoParticipantes.length == 0){
+            if (listadoParticipantes.length == 0) {
                 alert('No hay datos que mostrar');
                 return;
             }
 
-            //Mostramos los datos
+            var velocidadParticipantes = 0;
+
+            //Mostramos los datos y antes limpiamos el div para 
+            //visualizar la tabla
+
+            document.getElementById('resultados').innerHTML = "";
 
             //bucle que recorra los participantes incluidos
             //En el array
+            //Creamos la etiqueta <table>
+            const table = document.createElement('table');
+            table.innerHTML = `<thead>
+                                    <tr>
+                                        <th>Dorsal</th>
+                                        <th>Tiempo (m:s)</th>
+                                        <th>Velocidad media (Km/h)</th>
+                                    </tr>
+                                </thead>`;
 
             //Por cada dato dentro de la lista
-            for(var participante of listadoParticipantes){
+            for (var participante of listadoParticipantes) {
 
-                
+                //Calculamos la velocidad media del participante:
+                var tiempoSegundos = (Number(participante.min) * 60) + Number(participante.seg);
+                var tiempoHoras = tiempoSegundos / 3600;
+                var velocidadMedia = 5 / tiempoHoras; //Km/h
 
-            }
+                //Incrementamos la variable de vel media total:
+                velocidadParticipantes += velocidadMedia;
+                //Creamos el registro para la tabla:
+                const row = `<tr>
+                                <td>${participante.dorsalParticipante}</td>
+                                <td>${participante.min}:${participante.seg}</td>
+                                <td>${velocidadMedia.toFixed(2)}</td>
+                            </tr>`
 
-        }
+                //Al contenido que ya tiene table le añado el generado en row
+                table.innerHTML += row
+            }//fin del for
+
+            console.log(table)
+
+            //Añadimos la tabla al documento:
+            document.getElementById('resultados').append(table);
+
+            //Calculamos la velocidad media total: (velMed) / cant participantes
+            //listadoParticipantes.length
+
+            var mediaTotal = velocidadParticipantes / listadoParticipantes.length;
+
+            //Añado el dato a resultados:
+
+            const resultadoMediaTotal = document.createElement('p');
+            resultadoMediaTotal.innerHTML = mediaTotal.toFixed(2);
+            document.getElementById('resultados').append(resultadoMediaTotal);
+        }//fin evento
 
         //Evento al pulsar
         btnInsertar.onclick = () => {
@@ -102,7 +168,7 @@
             const segundos = document.getElementById('segundos').value;
 
             //comprobamos que el usuario a insertado todos los datos
-            if(dorsal == "" || minutos == "" || segundos == ""){
+            if (dorsal == "" || minutos == "" || segundos == "") {
                 alert("Faltan datos por completar");
                 return; //Finalizamos el evento
             }
@@ -124,9 +190,10 @@
             document.getElementById('segundos').value = "";
 
         }
-       
+
 
     </script>
-    
+
 </body>
+
 </html>
